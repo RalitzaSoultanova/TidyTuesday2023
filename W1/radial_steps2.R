@@ -48,7 +48,7 @@ p <- ggplot(df,
            ymax=steps))+
   geom_linerange(size = 1.3, alpha = 0.65, color="#292929")+ 
   scale_x_date(date_labels = "%b", breaks = date_breaks("month")) +
-  ylim(0, 20000) +
+  ylim(0, 35000) +
   labs(
     title = "My 2022 in Steps",
     subtitle = " 4.173.417 Steps done in 2022 \n11.434 daily average\n3.300 km walked",
