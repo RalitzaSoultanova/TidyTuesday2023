@@ -95,10 +95,3 @@ ggdraw() +
   #theme
   theme(plot.margin = margin(1, 1, 1, 1))
 
-#save
-
-ggsave("alonef.png",  
-       width = 1500,
-       units = "px",
-       bg = c_back,
-       dpi = 300)
