@@ -1,0 +1,146 @@
+#TidyTuesday w 5 2023
+#Between 2013 and 2017, Roland Kays et al. convinced hundreds of volunteers in the U.S., U.K., Australia, and New Zealand to strap GPS sensors on their pet cats. 
+#The aforelinked datasets include each cat’s characteristics (such as age, sex, neuter status, hunting habits) and time-stamped GPS pings.
+#When using this dataset, please cite the original article.
+#Data based on numbers of observations of movement per hour per cat.  101 cats in the UK were were equiped with a GSP and observations recorded as part of a sitizen science project " 
+
+#Kays R, Dunn RR, Parsons AW, Mcdonald B, Perkins T, Powers S, Shell L, McDonald JL, Cole H, Kikillus H, Woods L, Tindle H, Roetman P (2020) The small home ranges and large local ecological impacts of pet cats. Animal Conservation. doi:10.1111/acv.12563
+
+#Additionally, please cite the Movebank data package:
+#McDonald JL, Cole H (2020) Data from: The small home ranges and large local ecological impacts of pet cats [United Kingdom]. Movebank Data Repository. doi:10.5441/001/1.pf315732
+
+
+#package with the data 
+#install.packages("camcorder")
+
+#libraries
+library(tidyverse)
+library(ggplot2)
+library(jpeg)
+library(camcorder)
+library(cowplot) #several plots in one space 
+
+
+#set working directory to source file location
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+#import data 
+tuesdata <- tidytuesdayR::tt_load('2023-01-31')
+
+movement <- tuesdata$cats_uk
+description <- tuesdata$cats_uk_reference
+
+
+
+### Texts 
+# title 
+tit <- "Cats are nocturnal animals"
+subt <- "When you wake up for work they start to prepare for a nap. 
+\nOn average cats are the most active between 23 and 2 AM 
+\nand the least active between 12 and 14.\n"
+capt <- "@Ralitza Soultanova, data: McDonald JL, Cole H - Movebank"
+
+# background image 
+img <- readJPEG("image_stars3.jpg")
+
+# camcorder record plot 
+gg_record(dir = "tidytuesday-temp", device = "png", width = 12, height = 12, units = "in", dpi = 320)
+
+
+# when are cats the most active 
+# ading a column with the hour of the day
+movement$hour <- format(movement$timestamp, format="%H")
+
+#hours with most and least events
+min(movement$timestamp) 
+max(movement$timestamp) 
+
+(by_time <- movement %>% group_by(hour) %>% count(hour))
+avg <- mean(by_time$n)
+
+# camcorder record plot 
+gg_record(dir = "tidytuesday-temp", device = "png", width = 12, height = 12, units = "in", dpi = 320)
+
+
+by_time1 <- by_time                                                 # Replicate original data in order to change order of collumns manualy 
+by_time1$hourcus <- factor(by_time1$hour,                                    # Change ordering manually
+                  levels = c("6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "0", "1", "2", "3", "4", "5"))
+
+
+sapply(by_time, class)
+by_time$hour <- as.numeric(as.character(by_time$hour))  # Convert one variable to numeric
+
+  
+
+#to have a manual order of the bars - start with the beginning of human day :)
+by_time1 <- by_time                                                 #Replicate original data in order to change order of collumns manualy 
+by_time1$hourcus <- factor(by_time1$hour,                                    # Change ordering manually
+                           levels = c("6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "0", "1", "2", "3", "4", "5"))
+# plots 
+#basic plot
+p  <- ggplot(by_time1, aes(hourcus, n))+
+  geom_bar(stat = "identity", color = "black", fill="#95d0ed")+
+ # geom_hline(yintercept=758.96, 
+           #color = "#a8bc64", size=0.5)+ #horizontal line average number of observations per hour
+  #geom_text(aes(label=hourcus), vjust = 12, color="black")+
+  theme_minimal()+ 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.text.y=element_text(size=19, color="#95d0ed"),
+        axis.text.x=element_text(size=19, color="#0b1e3c", vjust=15),
+        axis.title.x =element_text(vjust= 5, size=20, color="#95d0ed"),
+        axis.title.y =element_text(vjust= 2.5, size=20,  color="#95d0ed"))+ 
+  ylab("Observations per hour")+
+  xlab("Time of the day") 
+  
+
+
+#sapply(by_time1, class) # check type of data 
+
+
+
+### combination of plots with ggdraw 
+# cowplot article  https://meghan.rbind.io/blog/cowplot/
+
+ggdraw() +
+  #background image
+  theme(plot.background = element_rect(fill="black", color = NA))+
+  draw_image(img, x = .0, y = .0, width = 1)+
+
+  #Title plot 
+  draw_label(tit,
+             fontfamily = "Euphemia UCAS", size = 60,
+             x = 0.5, y=0.94, hjust = 0.5, color="white") +
+  #subittle
+  draw_label(subt, 
+            fontfamily = "Euphemia UCAS", size = 18,
+            x = 0.065, y=0.8, hjust = 0, color="white")+
+  
+  # plot
+  draw_plot(p, x = .025, y = .07, width = .9, height = .7) +
+  
+
+
+  # caption 
+  draw_label(capt,
+             fontfamily = "Avenir", size = 20,
+             y = 0.03, x = 0.5, hjust = 0.5, colour = "white")+
+ theme(plot.margin = margin(2, 1, 2, 2))
+
+
+#generate the final GIF, use the gg_playback() function. The user can define: - where the final GIF gets saved by setting the name 
+#argument, - duration of the first and last
+#images with first_image_duration or last_image_duration - delay between frames in seconds with frame_duration
+
+gg_playback(
+  name = file.path(tempdir("tidytuesday-temp"), "vignette_gif.gif"),
+  first_image_duration = 5,
+  last_image_duration = 15,
+  frame_duration = .4,
+  image_resize = 800
+)
+
+
+#save the data for future use 
+write.csv(movement, "movement.csv", row.names=TRUE)
+write.csv(description, "description.csv", row.names=TRUE)
