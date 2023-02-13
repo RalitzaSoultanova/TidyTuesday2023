@@ -1,0 +1,127 @@
+#TidyTuesday w 6 2023
+### Autor Ralitza Soultanova 
+### Please quote if you use the code
+#Evolution of Adobe stock prices in comparison with other 13 technological stocks. 
+#TidyTuesday  #r4ds #tidyverse #RStats #DataViz #TidyTuesday  @R4DSCommunity
+#
+###### variables description 
+
+#Variable	class	description
+#stock_symbol	character	stock_symbol
+#date	double	date
+#open	double	The price at market open.
+#high	double	The highest price for that day.
+#low	double	The lowest price for that day.
+#close	double	The price at market close, adjusted for splits.
+#adj_close	double	The closing price after adjustments for all applicable splits and dividend distributions. Data is adjusted using appropriate split and dividend multipliers, adhering to Center for Research in Security Prices (CRSP) standards.
+#volume	double	The number of shares traded on that day.
+
+#company.csv
+#variable	class	description
+#stock_symbol	character	stock_symbol
+#company	character	Full name of the company.
+
+
+
+
+#libraries
+library(tidyverse)
+library(ggplot2)
+library(jpeg)
+library(camcorder)
+library(cowplot) #several plots in one space 
+
+
+#set working directory to source file location
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+
+#import data 
+tec_price <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-02-07/big_tech_stock_prices.csv')
+company  <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-02-07/big_tech_companies.csv')
+
+#merge on stock_symbol 
+price <- merge(tec_price, company, by = "stock_symbol")
+
+
+#save data for future use 
+write.csv(tec_price, "tec_price.csv", row.names=TRUE)
+write.csv(company, "company.csv", row.names=TRUE)
+write.csv(price, "price.csv", row.names=TRUE)
+
+### Texts 
+# title 
+tit <- "Evolution of Adobe stock prices"
+subt <- "2021-2022 comparison with 13 other technological stocks"
+capt <- "@Ralitza Soultanova, data: Yahoo"
+
+# colors
+back <- "#0b1e3c"
+
+# camcorder record plot 
+gg_record(dir = "tidytuesday-temp", device = "png", width = 12, height = 12, units = "in", dpi = 320)
+
+#select dates in 2021 and 2022 
+
+price2122 <- price %>%  filter(date > as.Date("2021-01-01") ) %>% filter(date < as.Date("2022-12-31"))
+price2122 <- price2122 %>% mutate(group=stock_symbol)
+
+adobe <- price2122 %>% filter(stock_symbol=="ADBE")
+adobe <- adobe %>% mutate(group=stock_symbol)
+
+#basic plot - evolution closing price 
+
+ggplot()+
+geom_line(data=adobe, aes(date, close, group=group), linewidth=1.1, alpha=1, col="red") + #line for Adobe
+  geom_line(data=price2122, aes(date, close, group=group), linewidth=0.3, alpha=0.3, col="white")+  #other technological stock
+  theme_void()+ 
+  theme(plot.background = element_rect(fill = back))+
+  theme(
+        plot.margin = margin(20, 30, 20, 30),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.text.y=element_text(size=15, color="white"),
+        axis.text.x=element_text(size=15, color="white", vjust=5),
+        axis.title.x =element_blank(),
+        axis.title.y =element_blank()
+        )+ 
+  ylab("Price in usd")+
+  xlab("Date") + 
+  labs(title = tit,
+       subtitle = subt,
+       caption = capt)+
+  theme(
+    plot.title = element_text(
+      size = 40, 
+      face = "bold", 
+      vjust = 0, 
+      color = "white"),
+    plot.subtitle =  element_text(
+       size = 22,
+       color="white"), 
+    plot.caption=element_text(
+      size = 18, 
+      face = "bold", 
+      vjust = 0.5, 
+      color = "white")
+  )
+
+ 
+
+
+#generate the final GIF, use the gg_playback() function. The user can define: - where the final GIF gets saved by setting the name 
+#argument, - duration of the first and last
+#images with first_image_duration or last_image_duration - delay between frames in seconds with frame_duration
+
+gg_playback(
+  name = file.path(tempdir("tidytuesday-temp"), "vignette_gif.gif"),
+  first_image_duration = 5,
+  last_image_duration = 15,
+  frame_duration = .4,
+  image_resize = 1200
+)
+
+
+#save the data for future use 
+write.csv(movement, "movement.csv", row.names=TRUE)
+write.csv(description, "description.csv", row.names=TRUE)
