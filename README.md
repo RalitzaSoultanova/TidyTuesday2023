@@ -1,6 +1,9 @@
 # Tidy Tuesday 2023
 Repository for Tidy Tuesday projects
 
+Week 6 - technological stock prices 
+
+
 Week 5 - Cats movements - UK data 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w5/w5_catk_uk
 ![Week5](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w5/final_plot.png)
