@@ -1,6 +1,10 @@
 # Tidy Tuesday 2023
 Repository for Tidy Tuesday projects
 
+Week7 - Age gap in Hollywood Movies 
+https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w7/w7_age_diference_movies.R
+![Week7](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w7/2023_02_15_10_14_10.635423.png)
+
 Week 6 - technological stock prices 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w6/w6_stock_prices
 ![Week6](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w6/2023_02_13_17_33_41.302136_resize_1200x1200_black.png)
