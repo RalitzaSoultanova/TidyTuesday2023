@@ -1,6 +1,10 @@
 # Tidy Tuesday 2023
 Repository for Tidy Tuesday projects
 
+Week8 - Colors used in Bob Ross's paintings 
+https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w8/w8_Bob_ross.R
+![Week7](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w8/final_bob_ross_ralitza_soultanova.png)
+
 Week7 - Age gap in Hollywood Movies 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w7/w7_age_diference_movies.R
 ![Week7](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w7/2023_02_15_10_14_10.635423.png)
