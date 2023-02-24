@@ -51,6 +51,7 @@ showtext_auto()
 tit <- "Colors of Bob Ross"
 subt <- "Most used colors per season. Suprisingly they are quite consistent durring the seasons"
 cap <- "viz: Ralitza Soultanova, data: Bob Ross paintings"
+text_lab = "Seasons 1-31"
 col_t <- '#0C0040'
 col_back <- "white"
   
@@ -68,18 +69,23 @@ top3 %>%ggplot(aes(season, n, fill=col)) +
   theme_void()+  
   coord_polar()+
   geom_segment(aes(x = 0.5, y = 1.03, xend = 2, yend = 1.03),
-               arrow = arrow(length = unit(0.2, "cm")), color = col_t, size = .2)+
-  annotate(geom = 'text',family ="Spectral", x = 0.5, y = 1.1, label = 'Seasons', size = 12, hjust=0, color = col_t)+
-  
+               arrow = arrow(length = unit(0.15, "cm")), color = col_t, size = .15)+
+  #annotate(geom = 'text',family ="Spectral", x = 0.5, y = 1.1, label = 'Seasons', size = 12, hjust=0, color = col_t)+
   labs(title = tit,
        subtitle = paste0(subt),
        caption = cap)+
   theme_void()+
+  #curved text by suggestion Cara Thomson and https://cran.r-project.org/web/packages/geomtextpath/vignettes/curved_polar.html 
+  geom_texthline(yintercept = 1, 
+                   label = text_lab, size=10,
+                   family ="Spectral",
+                   hjust = -0.01, vjust = -0.5, 
+                    color = col_t)+ 
   theme(text = element_text(family ="Spectral", colour = col_t, hjust = 0.5),
-        plot.title = element_text(size = 100,
+        plot.title = element_text(size = 230,
                                   margin = unit(c(0.8, 0, 0, 0), "cm")),
-        plot.subtitle = element_text( size = 40),
-        plot.caption = element_text(size = 40,
+        plot.subtitle = element_text( size = 50),
+        plot.caption = element_text(size = 70,
                                  margin = unit(c(0, 0.3, 1, 0), "cm"), 
                                  hjust = 0),
 
@@ -87,8 +93,12 @@ top3 %>%ggplot(aes(season, n, fill=col)) +
         axis.text.x=element_blank(),
         plot.title.position = "plot",
 
-        plot.background = element_rect(fill = col_back, colour = NA),
-        panel.background = element_rect(fill = col_back, colour = NA))
+        plot.background = element_rect(fill = "#D0CFCF", colour = NA),
+        panel.background = element_rect(fill = "#D0CFCF", colour = NA))
+
+
+
+
 
 #generate the final GIF, use the gg_playback() function. The user can define: - where the final GIF gets saved by setting the name 
 #argument, - duration of the first and last
@@ -106,4 +116,6 @@ gg_playback(
 
                 
                 
-           
+                
+
+
