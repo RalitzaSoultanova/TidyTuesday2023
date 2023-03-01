@@ -1,6 +1,10 @@
 # Tidy Tuesday 2023
 Repository for Tidy Tuesday projects
 
+Week 9 - Sentiment analysis on african languages 
+https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W9/w9_Tidy_Tuesday_African_languages.R
+![Week9](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W9/plot_languages.png)
+
 Week8 - Colors used in Bob Ross's paintings 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w8/w8_Bob_ross.R
 ![Week7](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w8/final_bob_ross_ralitza_soultanova.png)
