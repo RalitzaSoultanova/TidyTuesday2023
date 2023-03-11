@@ -1,6 +1,10 @@
 # Tidy Tuesday 2023
 Repository for Tidy Tuesday projects
 
+Week10 - Numbats observations in Australia 
+https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w10/W10_Tidy_tuesday_Numbats.R
+![Week9](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w10/numbats.png)
+
 Week 9 - Sentiment analysis on african languages 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W9/w9_Tidy_Tuesday_African_languages.R
 ![Week9](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W9/plot_languages.png)
