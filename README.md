@@ -2,10 +2,13 @@
 Repository for Tidy Tuesday projects
 
 Week 11 European Medicines agency - Drug autorisation in Europe 
+https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W11/W11_tidy_tuesday_drugs.R
+![Week10](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W11/companies.png)
+
 
 Week 10 - Numbats observations in Australia 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w10/W10_Tidy_tuesday_Numbats.R
-![Week9](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w10/numbats.png)
+![Week10](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/w10/numbats.png)
 
 Week 9 - Sentiment analysis on african languages 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W9/w9_Tidy_Tuesday_African_languages.R
