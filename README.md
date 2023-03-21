@@ -1,9 +1,13 @@
 # Tidy Tuesday 2023
 Repository for Tidy Tuesday projects
 
+Week12 Programing languages on GitHub
+https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W12/W12_tidy_tuesday_programming_languages.R
+![Week12]https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W12/final_programing_languages.png)
+
 Week 11 European Medicines agency - Drug autorisation in Europe 
 https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W11/W11_tidy_tuesday_drugs.R
-![Week10](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W11/companies.png)
+![Week11](https://github.com/RalitzaSoultanova/TidyTuesday2023/blob/main/W11/companies.png)
 
 
 Week 10 - Numbats observations in Australia 
